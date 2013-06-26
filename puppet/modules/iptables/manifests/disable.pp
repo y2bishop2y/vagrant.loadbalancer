@@ -1,5 +1,5 @@
 
-class iptable::disable {
+class iptables::disable {
 
   include iptables::install
 

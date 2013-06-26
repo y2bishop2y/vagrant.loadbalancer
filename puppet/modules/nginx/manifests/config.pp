@@ -3,7 +3,7 @@
 class nginx::config {
 
   include common::data
-  $internale_network = $common::data::internal_network
+  $internal_network = $common::data::internal_network
 
 
   if ! $common::data::internal_network {
@@ -14,7 +14,7 @@ class nginx::config {
   file {
     '/etc/nginx/nginx.conf':
       require => Class['nginx::install'],
-      content => tempalte('nginx/nginx.conf.erb'),
+      content => template('nginx/nginx.conf.erb'),
       notify  => Class['nginx::service'],
       mode    => '0644',
       owner   => 'root',
@@ -30,7 +30,7 @@ class nginx::config {
       require => Class['nginx::install']
       ;
     '/var/log/nginx':
-      esnure  => directory,
+      ensure  => directory,
       require => Class['nginx::install']
       ;
       
@@ -39,12 +39,12 @@ class nginx::config {
   }
 
 
-  defien cluster($servers) {
+  define cluster($servers) {
     file {
       "/etc/nginx/cluster.d/${name}.conf":
         require => [ File["/etc/nginx/clusters.d"], Class['nginx::install'] ],
         notify  => Class['nginx::service'],
-        content => tempalte('nginx/cluster.conf.erb'),
+        content => template('nginx/cluster.conf.erb'),
         mode    => '0644',
         owner   => 'root',
         group   => 'root',

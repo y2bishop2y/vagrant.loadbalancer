@@ -10,8 +10,10 @@ Vagrant.configure("2") do |config|
   #-----------------------------
   config.vm.define "lb" do |lb|
 
-    lb.vm.network :private_network, ip: "192.168.8.1"
+    lb.vm.network :private_network, ip: "33.33.33.10"
     lb.vm.hostname = "lb.local"
+    # lb.vm.ssh.timeout   = 300
+    # lb.vm.ssh.max_tries = 300
 
     lb.vm.provision :puppet do |puppet|
       puppet.manifests_path = "puppet/manifests"
@@ -26,8 +28,11 @@ Vagrant.configure("2") do |config|
   #-----------------------------
   config.vm.define "tomcat1" do |tomcat1|
     
-    tomcat1.vm.network :private_network, ip: "192.168.8.2"
+    tomcat1.vm.network :private_network, ip: "33.33.33.50"
     tomcat1.vm.hostname = "tomcat1.local"
+    # tomcat1.vm.ssh.timeout   = 300
+    # tomcat1.vm.ssh.max_tries = 300
+
     
     tomcat1.vm.provision :puppet do |puppet|
       puppet.manifests_path = "puppet/manifests"
@@ -44,8 +49,10 @@ Vagrant.configure("2") do |config|
   config.vm.define "tomcat2" do |tomcat2|
 
 
-    tomcat2.vm.network :private_network, ip: "192.168.8.3"
+    tomcat2.vm.network :private_network, ip: "33.33.33.100"
     tomcat2.vm.hostname = "tomcat2.local"
+    # tomcat2.vm.ssh.timeout   = 300
+    # tomcat2.vm.ssh.max_tries = 300
 
     tomcat2.vm.provision :pupplet do |puppet|
       puppet.manifests_path = "puppet/manifests"
