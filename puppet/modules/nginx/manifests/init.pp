@@ -1,8 +1,5 @@
 
 class nginx {
 
-  package { "nginx":
-
-    ensure => present
-  }
+  include nginx::install, nginx::config, nginx::service
 }
