@@ -1,5 +1,5 @@
 
-define tomcat7::tomcat_application {
+define tomcat7::tomcat_application (
   $application_name = $title
   $application_root,
   $tomcat_user,

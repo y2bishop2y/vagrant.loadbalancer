@@ -9,6 +9,7 @@ class { apt-hupdate: stage => pre }
 
 include tree
 include python
+include emacs
 
 
 class requirements {
