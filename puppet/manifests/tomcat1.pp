@@ -25,9 +25,10 @@ class requirements {
     ensure  => 'present',
     gid     => 'vagrant',
     require => Group['vagrant']
-  } -> file { "/home/vagrant" :
-  ensure => directory,
-  owner  => vagrant
+  }
+  -> file { "/home/vagrant" :
+    ensure => directory,
+    owner  => vagrant
   }
 
   ssh::user { "vagrant": }
@@ -42,3 +43,7 @@ class requirements {
     require => Group['puppet']
   }
 }
+
+
+include java6
+include tomcat6

@@ -11,15 +11,15 @@ include python
 include nginx
 include emacs 
 
-include iptables::disable
-include iscsid::disable
+#--- Have to figure out 
+# include iptables::disable
+# include iscsid::disable
 
 
 nginx::config::cluster { 'test':
   servers => [
-               '33.33.33.50.:8082',
+                '33.33.33.50.:8082',
                ]
-
 }
 
 nginx::config::vhost { 'lb.local':

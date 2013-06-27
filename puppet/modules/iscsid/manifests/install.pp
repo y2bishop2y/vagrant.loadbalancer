@@ -2,7 +2,13 @@
 class iscsid::install {
 
   package {
-    'iscsi-initiator-utils':
+    'open-iscsi-utils':
       ensure => installed,
   }
+
+  package {
+    'open-iscsi':
+      ensure => installed,
+  }
+
 }

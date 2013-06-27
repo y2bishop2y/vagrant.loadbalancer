@@ -41,7 +41,7 @@ class nginx::config {
 
   define cluster($servers) {
     file {
-      "/etc/nginx/cluster.d/${name}.conf":
+      "/etc/nginx/clusters.d/${name}.conf":
         require => [ File["/etc/nginx/clusters.d"], Class['nginx::install'] ],
         notify  => Class['nginx::service'],
         content => template('nginx/cluster.conf.erb'),
