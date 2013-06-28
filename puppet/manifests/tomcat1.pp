@@ -6,11 +6,8 @@ Stage[pre] -> Stage[main] -> Stage[post]
 
 class { apt-hupdate: stage => pre }
 
-
 include tree
-include python
 include emacs
-
 
 class requirements {
   include sysconfig

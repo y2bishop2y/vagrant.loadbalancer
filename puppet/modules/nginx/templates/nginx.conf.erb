@@ -30,5 +30,39 @@ http {
     }
   }
 
+  server {
+     server_name localhost;
+        listen 443;
+
+        ssl on;
+        ssl_session_timeout 5m;
+        ssl_protocols SSLv2 SSLv3 TLSv1;
+        #make sure you already have this certificate pair!
+	ssl_certificate /var/certs/server.crt;
+        ssl_certificate_key /var/certs/server.key;
+        ssl_session_cache shared:SSL:10m;
+
+	# www-root, we're serving static files from here, accessible via https://localhost/
+        location / {
+            root  /var/www;
+            index index.html index.htm;
+        }
+
+	# Our endpoint for tomcat reverse-proxy, assuming your endpoint java-servlet knows
+	# how to handle http://localhost/gadgets  requests
+        location /gadgets {
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+	    proxy_set_header X-Forwarded-Proto https;
+            proxy_redirect off;
+            proxy_connect_timeout      240;
+            proxy_send_timeout         240;
+            proxy_read_timeout         240;
+            # note, there is not SSL here! plain HTTP is used
+	   proxy_pass http://tomcat_server;
+        }
+  }  
+	
+
   include /etc/nginx/vhosts.d/*.conf;
 }

@@ -1,8 +1,8 @@
 
 class tomcat6::config(
   $application_name = $title,
-  $tomcat_port = 8009,
-  $tomcat_control_port = ( $tomcat_port + 1000 ),
+  $tomcat_port = 8080,
+  $tomcat_control_port = 8005,
   $tomcat_admin_user = "tomcat",
   $tomcat_admin_pass = "123456",
   $jmx_registry_port = 10052,
@@ -42,13 +42,13 @@ class tomcat6::config(
 
   }
 
-  file { "servers.xml":
-    owner   => root,
-    path    => "${application_dir}/server.xml",
-    require => Package['tomcat6'],
-    notify  => Service['tomcat6'],
-    content => template('tomcat6/server.xml.erb'),
-  }
+#   file { "servers.xml":
+#     owner   => root,
+#    path    => "${application_dir}/server.xml",
+#    require => Package['tomcat6'],
+#    notify  => Service['tomcat6'],
+#    content => template('tomcat6/server.xml.erb'),
+#  }
     
   
 }

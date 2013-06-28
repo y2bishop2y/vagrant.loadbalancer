@@ -1,4 +1,4 @@
-server {
+sserver {
   listen *:80;
   server_name <%= name %>;
 
@@ -10,7 +10,10 @@ server {
 
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Host   $host;	
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+
 
     client_max_body_size 32m;
     client_body_buffer_size 128k;
