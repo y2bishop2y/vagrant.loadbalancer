@@ -18,7 +18,8 @@ include emacs
 
 nginx::config::cluster { 'test':
   servers => [
-                '33.33.33.50.:8009',
+              '33.33.33.50.:8080',
+              '33.33.33.100:8080'
                ]
 }
 

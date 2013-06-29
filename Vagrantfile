@@ -57,13 +57,15 @@ Vagrant.configure("2") do |config|
   #-----------------------------
   config.vm.define "tomcat2" do |tomcat2|
 
+    tomcat2.vm.box     = "precise64"
+    tomcat2.vm.box_url = "http://files/vagrantup.com/precise64.box"
 
     tomcat2.vm.network :private_network, ip: "33.33.33.100"
     tomcat2.vm.hostname = "tomcat2.local"
     # tomcat2.vm.ssh.timeout   = 300
     # tomcat2.vm.ssh.max_tries = 300
 
-    tomcat2.vm.provision :pupplet do |puppet|
+    tomcat2.vm.provision :puppet do |puppet|
       puppet.manifests_path = "puppet/manifests"
       puppet.module_path    = "puppet/modules"
       puppet.manifest_file  = "tomcat2.pp"

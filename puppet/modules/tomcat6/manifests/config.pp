@@ -39,9 +39,9 @@ class tomcat6::config(
     require => Package['tomcat6'],
     notify  => Service['tomcat6'],
     content => template('tomcat6/tomcat-users.xml.erb')
-
   }
 
+  
 #   file { "servers.xml":
 #     owner   => root,
 #    path    => "${application_dir}/server.xml",
