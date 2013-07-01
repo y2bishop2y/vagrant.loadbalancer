@@ -19,6 +19,41 @@ Vagrant.configure("2") do |config|
     # lb.vm.ssh.timeout   = 300
     # lb.vm.ssh.max_tries = 300
 
+    #==============================
+    # PROVIDER: VirtualBox
+    #------------------------------
+    lb.vm.provider :virtualbox do |vb|
+      vb.customize [
+                    'modifyvm', :id,
+                    '--name', 'lb.local'
+                   ]
+    end
+
+    #==============================
+    # PROVIDER: AWS
+    #------------------------------
+    lb.vm.provider :aws do |aws, override|
+      #-- Root account
+
+      #-- Vagrant account
+      aws.instance_type     = "t1.micro"
+      aws.access_key_id     = ENV[ 'AWS_ACCESS_KEY' ]
+      aws.secret_access_key = ENV[ 'AWS_SECRET_KEY' ]
+
+      aws.keypair_name      = 'vagrant'
+    
+      aws.ami = "ami-70f96e40"
+
+      # aws.region = "us-east-1"
+      aws.region = "us-west-1"
+    
+      override.ssh.username = "ubuntu"
+      # override.ssh.private_key_path = "/Users/eberenbaum/.ssh/aws/"
+      # override.ssh.private_key_path = "~/.ssh/aws/vagrant.pem"
+      override.ssh.private_key_path = "~/.ssh/aws/vagrant.pem"
+    end
+
+
     lb.vm.provision :puppet do |puppet|
       puppet.manifests_path = "puppet/manifests"
       puppet.module_path    = "puppet/modules"
@@ -42,6 +77,39 @@ Vagrant.configure("2") do |config|
     # tomcat1.vm.ssh.timeout   = 300
     # tomcat1.vm.ssh.max_tries = 300
 
+    #==============================
+    # PROVIDER: VirtualBox
+    #------------------------------
+    tomcat1.vm.provider :virtualbox do |vb|
+      vb.customize [
+                    'modifyvm', :id,
+                    '--name', 'tomcat1.local'
+                   ]
+    end
+
+    #==============================
+    # PROVIDER: AWS
+    #------------------------------
+    tomcat1.vm.provider :aws do |aws, override|
+      #-- Root account
+
+      #-- Vagrant account
+      aws.instance_type     = "t1.micro"
+      aws.access_key_id     = ENV[ 'AWS_ACCESS_KEY' ]
+      aws.secret_access_key = ENV[ 'AWS_SECRET_KEY' ]
+
+      aws.keypair_name      = 'vagrant'
+    
+      aws.ami = "ami-70f96e40"
+
+      # aws.region = "us-east-1"
+      aws.region = "us-west-1"
+    
+      override.ssh.username = "ubuntu"
+      # override.ssh.private_key_path = "/Users/eberenbaum/.ssh/aws/"
+      # override.ssh.private_key_path = "~/.ssh/aws/vagrant.pem"
+      override.ssh.private_key_path = "~/.ssh/aws/vagrant.pem"
+    end
     
     tomcat1.vm.provision :puppet do |puppet|
       puppet.manifests_path = "puppet/manifests"
@@ -64,6 +132,17 @@ Vagrant.configure("2") do |config|
     tomcat2.vm.hostname = "tomcat2.local"
     # tomcat2.vm.ssh.timeout   = 300
     # tomcat2.vm.ssh.max_tries = 300
+
+    #==============================
+    # PROVIDER: VirtualBox
+    #------------------------------
+    tomcat2.vm.provider :virtualbox do |vb|
+      vb.customize [
+                    'modifyvm', :id,
+                    '--name', 'tomcat2.local'
+                   ]
+    end
+
 
     tomcat2.vm.provision :puppet do |puppet|
       puppet.manifests_path = "puppet/manifests"

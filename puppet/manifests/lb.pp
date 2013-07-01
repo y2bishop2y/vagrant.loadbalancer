@@ -16,15 +16,15 @@ include emacs
 # include iscsid::disable
 
 
-nginx::config::cluster { 'test':
+nginx::config::cluster { 'tomcat_cluster':
   servers => [
-              '33.33.33.50.:8080',
+              '33.33.33.50:8080',
               '33.33.33.100:8080'
                ]
 }
 
-nginx::config::vhost { 'lb.local':
-  cluster => 'test',
+nginx::config::vhost { 'tomcat.local':
+  cluster => 'tomcat_cluster',
 }
 
 
