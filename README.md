@@ -38,6 +38,18 @@ vagrant plugin install vagrant-aws
 ```Bash
 export AWS_ACCESS_KEY=<copy accounts access key>
 export AWS_SESCRET_KEY=<copy secret key>
+export AWS_LB_AMI=ami-70f96e40
+export AWS_LB_SECURITY_GROUPS="lb-group"
+export AWS_TOMCAT_AMI=ami-70f96e40
+export AWS_TOMCAT_SECURITY_GROUPS="tomcat-group"
+export AWS_USERNAME=ubuntu
+export AWS_KEY_PATH="~/.ssh/aws/vagrant.pem"
+export AWS_KEYPAIR_NAME="vagrant"
+export AWS_REGION="us-west-2"
+export AWS_ZONE="us-west-2a"
+
+
+
 ```
 #### Upload cert to Nova
 
