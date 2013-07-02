@@ -40,17 +40,12 @@ Vagrant.configure("2") do |config|
       aws.access_key_id     = ENV[ 'AWS_ACCESS_KEY' ]
       aws.secret_access_key = ENV[ 'AWS_SECRET_KEY' ]
 
-      aws.keypair_name      = 'vagrant'
-    
-      aws.ami = "ami-70f96e40"
-
-      # aws.region = "us-east-1"
-      aws.region = "us-west-1"
-    
-      override.ssh.username = "ubuntu"
-      # override.ssh.private_key_path = "/Users/eberenbaum/.ssh/aws/"
-      # override.ssh.private_key_path = "~/.ssh/aws/vagrant.pem"
-      override.ssh.private_key_path = "~/.ssh/aws/vagrant.pem"
+      aws.keypair_name      = ENV[ 'AWS_KEYPAIR_NAME' ] 
+      aws.ami               = ENV[ 'AWS_LB_AMI' ]
+      aws.region            = ENV[ 'AWS_REGION' ]
+      aws.availability_zone         = ENV[ 'AWS_ZONE' ]
+      override.ssh.username         = ENV[ 'AWS_USERNAME' ]
+      override.ssh.private_key_path = ENV[ 'AWS_KEY_PATH' ]
     end
 
 
@@ -66,8 +61,7 @@ Vagrant.configure("2") do |config|
   #=============================
   #-----------------------------
   config.vm.define "tomcat1" do |tomcat1|
-    # tomcat1.vm.box     = "centos-6.3-base-extended-swap"    
-    # tomcat1.vm.box_url = "http://asq-vagrant-boxes.s3.amazonaws.com/centos/centos-6.3-base-extended-swap.box"
+
     tomcat1.vm.box     = "precise64"
     tomcat1.vm.box_url = "http://files/vagrantup.com/precise64.box"
 
@@ -98,17 +92,13 @@ Vagrant.configure("2") do |config|
       aws.access_key_id     = ENV[ 'AWS_ACCESS_KEY' ]
       aws.secret_access_key = ENV[ 'AWS_SECRET_KEY' ]
 
-      aws.keypair_name      = 'vagrant'
+      aws.keypair_name      = ENV[ 'AWS_KEYPAIR_NAME' ] 
     
-      aws.ami = "ami-70f96e40"
-
-      # aws.region = "us-east-1"
-      aws.region = "us-west-1"
+      aws.ami    = ENV[ 'AWS_TOMCAT_AMI' ]
+      aws.region = ENV[ 'AWS_REGION' ]
     
-      override.ssh.username = "ubuntu"
-      # override.ssh.private_key_path = "/Users/eberenbaum/.ssh/aws/"
-      # override.ssh.private_key_path = "~/.ssh/aws/vagrant.pem"
-      override.ssh.private_key_path = "~/.ssh/aws/vagrant.pem"
+      override.ssh.username         = ENV[ 'AWS_USERNAME' ] 
+      override.ssh.private_key_path = ENV[ 'AWS_KEY_PATH' ] 
     end
     
     tomcat1.vm.provision :puppet do |puppet|
@@ -141,6 +131,27 @@ Vagrant.configure("2") do |config|
                     'modifyvm', :id,
                     '--name', 'tomcat2.local'
                    ]
+    end
+
+    #==============================
+    # PROVIDER: AWS
+    #------------------------------
+    tomcat1.vm.provider :aws do |aws, override|
+      #-- Root account
+
+      #-- Vagrant account
+      aws.instance_type     = "t1.micro"
+      aws.access_key_id     = ENV[ 'AWS_ACCESS_KEY' ]
+      aws.secret_access_key = ENV[ 'AWS_SECRET_KEY' ]
+
+      aws.keypair_name      = ENV[ 'AWS_KEYPAIR_NAME' ] 
+    
+      aws.ami    = ENV[ 'AWS_TOMCAT_AMI' ]
+      aws.region = ENV[ 'AWS_REGION' ]
+      aws.zone   = ENV[ 'AWS_ZONE' ]
+
+      override.ssh.username         = ENV[ 'AWS_USERNAME' ] 
+      override.ssh.private_key_path = ENV[ 'AWS_KEY_PATH' ]
     end
 
 
