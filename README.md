@@ -10,9 +10,17 @@ the VM. Can be run with either a local VirtualBox provider or AWS
 * Install [VirtualBox](http://virtualbox.org).
 * Install [vagrant](http://vagrantup.com)
 * Install Vagrant AWS plugin: 
+* install Vagrant AWSInfo plugin: (https://github.com/johntdyer/vagrant-awsinfo)
+
 ```
 vagrant plugin install vagrant-aws
+vagrant plugin install vagrant-awsinfo
 ```
+
+```
+vagrant awsinfo -m <hostName>
+```
+
   
 ## Install 
 

@@ -18,8 +18,8 @@ include emacs
 
 nginx::config::cluster { 'tomcat_cluster':
   servers => [
-              '33.33.33.50:8080',
-              '33.33.33.100:8080'
+              'tomcat1.local:8080',
+              'tomcat2.local:8080'
                ]
 }
 
