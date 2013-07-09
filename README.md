@@ -27,7 +27,7 @@ vagrant awsinfo -m <hostName>
 * Clone repository 
 * `cd vagrant.loadbancer`
 * `git submodule init`
-* `get submodule udpate`
+* `get submodule update`
 * `vagrant up`
 
 
@@ -58,14 +58,3 @@ export AWS_ZONE="us-west-2a"
 
 
 
-```
-#### Upload cert to Nova
-
-```Bash
-nova keypair-add ${certName} > {certName}.pem
-chmod 600 ${certName}
-```
-
-### Create first instance
-
-* Go to `http://33.33.33.10/`
