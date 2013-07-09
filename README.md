@@ -56,5 +56,9 @@ export AWS_KEYPAIR_NAME="vagrant"
 export AWS_REGION="us-west-2"
 export AWS_ZONE="us-west-2a"
 
+# Interface used by vagrat-hostmanager to query for Guest IP addresss 
+export GUEST_INTERFACE="eth1"
 
+# Interfaced used by Guest to determine Bridge public_network address ( via DHCP )
+export BRIDGE+INTERFACE="vbr0"
 

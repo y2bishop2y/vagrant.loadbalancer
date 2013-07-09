@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
 
   config.hostmanager.enabled           = true
   config.hostmanager.manage_host       = true
-  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.ignore_private_ip = true
   config.hostmanager.include_offline   = true
   config.vm.provision :hostmanager
 
@@ -18,12 +18,15 @@ Vagrant.configure("2") do |config|
     # PROVIDER: VirtualBox
     #------------------------------
     tomcat1.vm.provider :virtualbox do |vb, override|
-      tomcat1.hostmanager.aliases = %w(lb.local lb-alias)
+      # tomcat1.hostmanager.aliases = %w(lb.local lb-alias)
+      tomcat1.hostmanager.manage_host       = true
+      tomcat1.hostmanager.ignore_private_ip = true
+      tomcat1.hostmanager.interface         = ENV[ "GUEST_INTERFACE"] 
 
       override.vm.box     = "precise64"
       override.vm.box_url = "http://files/vagrantup.com/precise64.box"
 
-      override.vm.network :public_network
+      override.vm.network :public_network, :bridge => ENV[ 'BRIDGE_INTERFACE' ]
       # override.vm.network :private_network, ip: "33.33.33.50"
       override.vm.hostname = "tomcat1.local"
       # override.vm.ssh.timeout   = 300
@@ -85,12 +88,15 @@ Vagrant.configure("2") do |config|
     # PROVIDER: VirtualBox
     #------------------------------
     tomcat2.vm.provider :virtualbox do |vb, override|
-      tomcat2.hostmanager.aliases = %w(lb.local lb-alias)
+      # tomcat2.hostmanager.aliases = %w(lb.local lb-alias)
+      tomcat2.hostmanager.manage_host       = true
+      tomcat2.hostmanager.ignore_private_ip = true
+      tomcat2.hostmanager.interface         = "eth1" 
 
       override.vm.box     = "precise64"
       override.vm.box_url = "http://files/vagrantup.com/precise64.box"
 
-      override.vm.network :public_network
+      override.vm.network :public_network, :bridge => ENV[ 'VB_INTERFACE' ] # "virbr0"
       # override.vm.network :private_network, ip: "33.33.33.100"
       override.vm.hostname = "tomcat2.local"
       # override.vm.ssh.timeout   = 300
@@ -154,12 +160,16 @@ Vagrant.configure("2") do |config|
     # PROVIDER: VirtualBox
     #------------------------------
     lb.vm.provider :virtualbox do |vb, override|
-      lb.hostmanager.aliases = %w(lb.local lb-alias)
+      # lb.hostmanager.aliases = %w(lb.local lb-alias)
+      lb.hostmanager.manage_host       = true
+      lb.hostmanager.ignore_private_ip = true
+      lb.hostmanager.interface         = "eth1" 
+
       override.vm.box     = "precise64"
       override.vm.box_url = "http://files/vagrantup.com/precise64.box"
 
       # override.vm.network :private_network, ip: "33.33.33.10"
-      override.vm.network :public_network
+      override.vm.network :public_network, :bridge => ENV[ 'VB_INTERFACE' ] 
       override.vm.hostname = "lb.local"
 
       vb.customize [
