@@ -21,6 +21,16 @@ vagrant plugin install vagrant-awsinfo
 vagrant awsinfo -m <hostName>
 ```
 
+Install branch of vagrant-hostmaster ( until mereged into master ) 
+
+```
+git clone https://github.com/y2bishop2y/vagrant-hostmanager.git
+git checkout -b public_network_dhcp origin/public_network_dhcp
+
+rake gem:build
+vagrant plugin install pkg/vagrant-hostmanager-1.0.2.gem 
+```
+
   
 ## Install 
 
