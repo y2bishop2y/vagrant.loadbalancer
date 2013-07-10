@@ -60,5 +60,5 @@ export AWS_ZONE="us-west-2a"
 export GUEST_INTERFACE="eth1"
 
 # Interfaced used by Guest to determine Bridge public_network address ( via DHCP )
-export BRIDGE+INTERFACE="vbr0"
+export BRIDGE_INTERFACE="vbr0"
 
