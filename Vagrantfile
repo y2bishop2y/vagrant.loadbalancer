@@ -57,6 +57,7 @@ Vagrant.configure("2") do |config|
       #-- Root account
       override.vm.box     = "precise64"
       override.vm.box_url = "https://ngithub.com/mitchellh/vagrant-aws/raw/master/dummy.box"
+      override.vm.hostname = "tomcat1.local"
 
       #-- Vagrant account
       aws.instance_type     = "t1.micro"
@@ -127,6 +128,7 @@ Vagrant.configure("2") do |config|
       #-- Root account
       override.vm.box     = "precise64"
       override.vm.box_url = "https://ngithub.com/mitchellh/vagrant-aws/raw/master/dummy.box"
+      override.vm.hostname = "tomcat2.local"
 
       #-- Vagrant account
       aws.instance_type     = "t1.micro"
